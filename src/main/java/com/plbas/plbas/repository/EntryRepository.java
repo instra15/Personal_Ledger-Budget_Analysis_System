@@ -1,6 +1,9 @@
 package com.plbas.plbas.repository;
 
+import com.plbas.plbas.entity.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface EntryRepository extends JpaRepository {
+@Repository
+public interface EntryRepository extends JpaRepository<Entry,Long> {
 }

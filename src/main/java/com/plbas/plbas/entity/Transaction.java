@@ -20,11 +20,15 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    private String tx_no;
+    @Column(name = "tx_no")
+    private String tx_no;//交易流水号，UUID生成，全局唯一，用于标识一笔完整的交易
 
-    private Date date;
+    @Column(name = "date")
+    private Date date;//交易发生的日期
 
-    private String remark;
+    @Column(name = "remark")
+    private String remark;//备注，例如"中午和同事吃饭"
 }

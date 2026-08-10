@@ -21,16 +21,27 @@ public class Entry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    private Transaction transaction;
 
-    private Account account;
+    @JoinColumn(name = "transaction_id")
+    @ManyToOne
+    private Transaction transaction;//这笔分录属于哪笔交易
 
-    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;//这笔分录影响哪个账户
 
-    private BigDecimal amount;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;//这笔分录属于哪个收支分类
 
-    private CategoryDirection direction;
+    @Column(name = "amount")
+    private BigDecimal amount;//金额（始终为正数）
+
+    @Column(name = "direction")
+    @Enumerated(EnumType.STRING)
+    private CategoryDirection direction;//借贷方向：DEBIT（借方）或 CREDIT（贷方）
 
 }

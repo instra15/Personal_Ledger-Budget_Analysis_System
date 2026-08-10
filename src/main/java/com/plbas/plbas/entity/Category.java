@@ -19,11 +19,16 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    private String name;
+    @Column(name = "name")
+    private String name;//分类名称，例如"餐饮"、"交通"、"工资"
 
-    private CategoryDirection direction;
+    @Column(name = "direction")
+    @Enumerated(EnumType.STRING)
+    private CategoryDirection direction;//收支方向：INCOME（收入）或 EXPENSE（支出）
 
-    private String description;
+    @Column(name = "description")
+    private String description;//可选描述，例如"包括三餐和零食"
 }

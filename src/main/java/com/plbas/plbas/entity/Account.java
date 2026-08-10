@@ -21,13 +21,18 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    private String name;
+    @Column(name = "name")
+    private String name;//账户名称，例如"招商银行卡"、"微信钱包"、"现金"
 
-    private AccountType type;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private AccountType type;//账户类型：ASSET（资产，如现金、银行卡）、LIABILITY（负债，如信用卡）、EQUITY（权益，如初始本金）
 
-    private BigDecimal balance=BigDecimal.ZERO;
+    @Column(name = "balance")
+    private BigDecimal balance=BigDecimal.ZERO;//当前余额，正数表示资产，负数表示负债
 
 
 }
