@@ -2,6 +2,8 @@ package com.plbas.plbas.service.DTO;
 
 import com.plbas.plbas.entity.Category;
 import com.plbas.plbas.enums.CategoryDirection;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
+    @NotBlank
     private String name;//分类名称，例如"餐饮"、"交通"、"工资"
 
+    @NotNull
     private CategoryDirection direction;//收支方向：INCOME（收入）或 EXPENSE（支出）
 
+    @NotBlank
     private String description;//可选描述，例如"包括三餐和零食"
 
     public static CategoryDTO converter(Category category)

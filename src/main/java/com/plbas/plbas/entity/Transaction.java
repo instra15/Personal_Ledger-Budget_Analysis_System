@@ -2,6 +2,7 @@ package com.plbas.plbas.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class Transaction {
     @Column(name = "tx_no")
     private String tx_no;//交易流水号，UUID生成，全局唯一，用于标识一笔完整的交易
 
-    @NotBlank
+    @NotNull
     @Column(name = "date")
     private Date date;//交易发生的日期
 

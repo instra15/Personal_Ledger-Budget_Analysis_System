@@ -27,7 +27,8 @@ public class GlobalExceptionHandler{
 
 
 
-
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response<Void> handleOtherException(Exception e)
     {
         return Response.fail(e);
