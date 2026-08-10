@@ -2,6 +2,8 @@ package com.plbas.plbas.entity;
 
 import com.plbas.plbas.enums.CategoryDirection;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,22 +26,27 @@ public class Entry {
     @Column(name = "id")
     private Long id;
 
-
+    @NotBlank
     @JoinColumn(name = "transaction_id")
     @ManyToOne
     private Transaction transaction;//这笔分录属于哪笔交易
 
+    @NotBlank
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;//这笔分录影响哪个账户
 
+    @NotBlank
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;//这笔分录属于哪个收支分类
 
+    @NotBlank
+    @Positive
     @Column(name = "amount")
     private BigDecimal amount;//金额（始终为正数）
 
+    @NotBlank
     @Column(name = "direction")
     @Enumerated(EnumType.STRING)
     private CategoryDirection direction;//借贷方向：DEBIT（借方）或 CREDIT（贷方）
