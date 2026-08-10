@@ -5,6 +5,7 @@ import com.plbas.plbas.service.DTO.TxDTO;
 
 public interface TransactionService {
 
-    Response<TxDTO> addTransaction();
+
+    Response<TxDTO> addTransaction(TxDTO txDTO);
 
 }

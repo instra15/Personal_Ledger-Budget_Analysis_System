@@ -22,6 +22,7 @@ public class TxDTO {
 
     private List<EntryItem> entries;
 
+    @Data
     public static class EntryItem
     {
         @NotNull

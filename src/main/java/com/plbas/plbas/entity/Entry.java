@@ -1,6 +1,7 @@
 package com.plbas.plbas.entity;
 
 import com.plbas.plbas.enums.CategoryDirection;
+import com.plbas.plbas.enums.EntryDirection;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -49,6 +50,6 @@ public class Entry {
     @NotNull
     @Column(name = "direction")
     @Enumerated(EnumType.STRING)
-    private CategoryDirection direction;//借贷方向：DEBIT（借方）或 CREDIT（贷方）
+    private EntryDirection direction;//借贷方向：DEBIT（借方）或 CREDIT（贷方）
 
 }
