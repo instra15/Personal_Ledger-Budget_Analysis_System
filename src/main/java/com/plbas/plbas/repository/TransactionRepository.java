@@ -12,5 +12,7 @@ import java.awt.print.Pageable;
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
     Transaction getByTx_no(String tx_no);
 
-    Page<TransactionDTO> findAll(Pageable pageable);
+    Page<Transaction> findAll(Pageable pageable);
+
+    Transaction findByTx_no(String tx_no);
 }

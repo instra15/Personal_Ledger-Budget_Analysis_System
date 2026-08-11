@@ -127,9 +127,19 @@ public class TransactionServiceImpl implements TransactionService {
         return Response.success(transactionDTO);
     }
 
-     public Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable)
+    public Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable)
     {
-        Page<TransactionDTO> page= transactionRepository.findAll(pageable);
-        return Response.success(page);
+        Page<Transaction> page=transactionRepository.findAll(pageable);
+        return Response.success(page.map(TransactionDTO::converter));
+    }
+
+    public Response<TransactionDTO> getTransactionByTx_no(String tx_no)
+    {
+        Transaction transaction=transactionRepository.findByTx_no(tx_no);
+        if (transaction==null)
+        {
+            throw new BusinessException("Can not find by tx_no: "+tx_no);
+        }
+        return Response.success(TransactionDTO.converter(transaction));
     }
 }

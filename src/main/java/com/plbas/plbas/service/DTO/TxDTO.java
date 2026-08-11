@@ -1,6 +1,8 @@
 package com.plbas.plbas.service.DTO;
 
 import com.plbas.plbas.enums.EntryDirection;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ public class TxDTO {
 
     private String remark;
 
+    @NotEmpty
     private List<EntryItem> entries;
 
     @Data
@@ -32,7 +35,7 @@ public class TxDTO {
         private Long category_id;
 
         @NotNull
-        @Positive
+        @DecimalMin("0.00")
         private BigDecimal amount;
 
         @NotNull
