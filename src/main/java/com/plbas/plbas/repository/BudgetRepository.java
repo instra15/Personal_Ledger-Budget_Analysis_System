@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BudgetRepository extends JpaRepository<Budget,Long> {
     Budget findByCategory(@NotNull Category category);
+
+    Budget findByCategoryAndYearMonth(Category category,String yearMonth);
 }

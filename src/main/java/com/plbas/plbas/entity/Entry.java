@@ -1,6 +1,6 @@
 package com.plbas.plbas.entity;
 
-import com.plbas.plbas.enums.CategoryDirection;
+
 import com.plbas.plbas.enums.EntryDirection;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
