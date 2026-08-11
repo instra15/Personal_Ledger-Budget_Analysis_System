@@ -1,5 +1,6 @@
 package com.plbas.plbas.service.DTO;
 
+import com.plbas.plbas.entity.Budget;
 import com.plbas.plbas.entity.Category;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,26 @@ public class BudgetDTO {
     @DecimalMin("0.00")
     private BigDecimal currentSpent = BigDecimal.ZERO;//当前已花费金额，每次新增支出分录时自动累加
 
+    public static BudgetDTO convert(Budget budget)
+    {
+        BudgetDTO budgetDTO=new BudgetDTO();
+        budgetDTO.setCategory(budget.getCategory());
+        budgetDTO.setYearMonth(budget.getYearMonth());
+        budgetDTO.setBudgetAmount(budget.getBudgetAmount());
+        budgetDTO.setThresholdPercent(budget.getThresholdPercent());
+        budgetDTO.setCurrentSpent(budget.getCurrentSpent());
+        return budgetDTO;
+    }
+
+    public static Budget convert(BudgetDTO budgetDTO)
+    {
+        Budget budget=new Budget();
+        budget.setCategory(budgetDTO.getCategory());
+        budget.setYearMonth(budgetDTO.getYearMonth());
+        budget.setBudgetAmount(budgetDTO.getBudgetAmount());
+        budget.setThresholdPercent(budgetDTO.getThresholdPercent());
+        budget.setCurrentSpent(budgetDTO.getCurrentSpent());
+        return budget;
+    }
 
 }

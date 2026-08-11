@@ -7,6 +7,8 @@ import com.plbas.plbas.repository.CategoryRepository;
 import com.plbas.plbas.service.DTO.CategoryDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService {
 
@@ -21,10 +23,15 @@ public class CategoryServiceImpl implements CategoryService {
         {
             throw new BusinessException("Category exists.");
         }
-        category=categoryRepository.save(CategoryDTO.converter(categoryDTO));
-        return Response.success(CategoryDTO.converter(category));
+        categoryRepository.save(CategoryDTO.converter(categoryDTO));
+        return Response.success(categoryDTO);
     }
 
-
+    public Response<List<CategoryDTO>> getAllCategory()
+    {
+        List<CategoryDTO> list=new ArrayList<>();
+        list=categoryRepository.findAll().stream().map(CategoryDTO::converter).toList();
+        return Response.success(list);
+    }
 
 }
