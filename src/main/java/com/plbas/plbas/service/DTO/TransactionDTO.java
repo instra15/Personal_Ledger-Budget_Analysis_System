@@ -27,7 +27,7 @@ public class TransactionDTO {
     public static Transaction converter(TransactionDTO transactionDTO)
     {
         Transaction transaction=new Transaction();
-        transaction.setTx_no(transactionDTO.getTx_no());
+        transaction.setTxNo(transactionDTO.getTx_no());
         transaction.setRemark(transactionDTO.getRemark());
         transaction.setDate(transactionDTO.getDate());
         return transaction;
@@ -36,7 +36,7 @@ public class TransactionDTO {
     public static TransactionDTO converter(Transaction transaction)
     {
         TransactionDTO transactionDTO=new TransactionDTO();
-        transactionDTO.setTx_no(transaction.getTx_no());
+        transactionDTO.setTx_no(transaction.getTxNo());
         transactionDTO.setRemark(transaction.getRemark());
         transactionDTO.setDate(transaction.getDate());
         return transactionDTO;

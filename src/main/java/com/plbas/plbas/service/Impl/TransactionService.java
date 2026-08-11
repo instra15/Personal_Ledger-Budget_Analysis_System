@@ -4,9 +4,7 @@ import com.plbas.plbas.Response;
 import com.plbas.plbas.service.DTO.TransactionDTO;
 import com.plbas.plbas.service.DTO.TxDTO;
 import org.springframework.data.domain.Page;
-
-import java.awt.print.Pageable;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface TransactionService {
 

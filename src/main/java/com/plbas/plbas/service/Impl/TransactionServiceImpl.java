@@ -9,8 +9,8 @@ import com.plbas.plbas.service.DTO.TxDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.YearMonth;
@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
         String uuid=UUID.randomUUID().toString();
         transaction.setDate(txDTO.getDate());
         transaction.setRemark(txDTO.getRemark());
-        transaction.setTx_no(uuid);
+        transaction.setTxNo(uuid);
         transaction = transactionRepository.save(transaction);
 
         List<Entry> entries=new ArrayList<>();
@@ -135,7 +135,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     public Response<TransactionDTO> getTransactionByTx_no(String tx_no)
     {
-        Transaction transaction=transactionRepository.findByTx_no(tx_no);
+        Transaction transaction=transactionRepository.findByTxNo(tx_no);
         if (transaction==null)
         {
             throw new BusinessException("Can not find by tx_no: "+tx_no);

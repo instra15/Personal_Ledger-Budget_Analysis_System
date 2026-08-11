@@ -27,7 +27,7 @@ public class Transaction {
 
     @NotBlank
     @Column(name = "tx_no")
-    private String tx_no;//交易流水号，UUID生成，全局唯一，用于标识一笔完整的交易
+    private String txNo;//交易流水号，UUID生成，全局唯一，用于标识一笔完整的交易
 
     @NotNull
     @Column(name = "date")
