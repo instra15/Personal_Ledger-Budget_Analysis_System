@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,6 +24,7 @@ import static com.plbas.plbas.enums.EntryDirection.DEBIT;
 /**
  * 复式记账事务编排
  */
+@Service
 public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
@@ -41,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
     private BudgetRepository budgetRepository;
 
     @Transactional
-    public Response<TransactionDTO> addTransaction(TxDTO txDTO)
+    public Response<Void> addTransaction(TxDTO txDTO)
     {
         //保存一笔交易信息
         Transaction transaction=new Transaction();
@@ -124,7 +126,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDTO.setRemark(txDTO.getRemark());
         transactionDTO.setTx_no(uuid);
         transactionDTO.setWarning(warning);
-        return Response.success(transactionDTO);
+        return Response.success(null);
     }
 
     public Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable)

@@ -8,10 +8,12 @@ import com.plbas.plbas.service.DTO.BudgetDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 /**
  * 预算预警逻辑
  */
+@Service
 public class BudgetServiceImpl implements BudgetService {
 
     @Autowired

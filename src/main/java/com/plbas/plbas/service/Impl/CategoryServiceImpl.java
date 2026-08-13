@@ -7,9 +7,12 @@ import com.plbas.plbas.repository.CategoryRepository;
 import com.plbas.plbas.service.DTO.CategoryDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired

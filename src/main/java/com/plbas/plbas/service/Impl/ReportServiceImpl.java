@@ -7,10 +7,10 @@ import com.plbas.plbas.entity.Transaction;
 import com.plbas.plbas.enums.CategoryDirection;
 import com.plbas.plbas.enums.EntryDirection;
 import com.plbas.plbas.repository.AccountRepository;
-import com.plbas.plbas.repository.CategoryRepository;
 import com.plbas.plbas.repository.EntryRepository;
 import com.plbas.plbas.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,8 +21,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.plbas.plbas.enums.CategoryDirection.EXPENSE;
 
+
+@Service
 public class ReportServiceImpl implements ReportService{
 
     @Autowired
@@ -90,7 +91,7 @@ public class ReportServiceImpl implements ReportService{
      */
     public Response<Map<String,Object>> getCategoryPie()
     {
-        List<Entry> entries=entryRepository.findByDirectionAndCategoryDirection(EntryDirection.DEBIT,EXPENSE);
+        List<Entry> entries=entryRepository.findByDirectionAndCategoryDirection(EntryDirection.DEBIT,CategoryDirection.EXPENSE);
         if (entries.isEmpty())
         {
             return Response.success(new HashMap<>());
