@@ -4,8 +4,13 @@ import com.plbas.plbas.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction,Long> {
 
     Transaction findByTxNo(String tx_no);
+
+    List<Transaction> findAllByDateBetween(Date start, Date end);
 }

@@ -10,4 +10,5 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     Category findByNameAndDirection(String name, CategoryDirection direction);
 
+
 }
