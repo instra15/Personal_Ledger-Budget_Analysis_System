@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Transactional
-    public Response<CategoryDTO> createCategory(CategoryDTO categoryDTO)
+    public Response<Void> createCategory(CategoryDTO categoryDTO)
     {
         Category category=categoryRepository.findByNameAndDirection(categoryDTO.getName(),categoryDTO.getDirection());
         if (category!=null)
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new BusinessException("Category exists.");
         }
         categoryRepository.save(CategoryDTO.converter(categoryDTO));
-        return Response.success(categoryDTO);
+        return Response.success(null);
     }
 
     public Response<List<CategoryDTO>> getAllCategory()

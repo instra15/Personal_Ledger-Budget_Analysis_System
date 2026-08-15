@@ -4,6 +4,7 @@ import com.plbas.plbas.Response;
 import com.plbas.plbas.service.DTO.TransactionDTO;
 import com.plbas.plbas.service.DTO.TxDTO;
 import com.plbas.plbas.service.Impl.TransactionService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/add")
-    public Response<Void> addTransaction(TxDTO txDTO)
+    public Response<Void> addTransaction(@RequestBody @Valid TxDTO txDTO)
     {
         return transactionService.addTransaction(txDTO);
     }

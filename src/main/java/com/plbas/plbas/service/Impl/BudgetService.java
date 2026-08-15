@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface BudgetService {
 
-    Response<BudgetDTO> createBudget(BudgetDTO budgetDTO);
+    Response<Void> createBudget(BudgetDTO budgetDTO);
 
     Response<BudgetDTO> getBudgetById(Long id);
 

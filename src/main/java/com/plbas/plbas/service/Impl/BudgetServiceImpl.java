@@ -19,7 +19,7 @@ public class BudgetServiceImpl implements BudgetService {
     @Autowired
     private BudgetRepository budgetRepository;
 
-    public Response<BudgetDTO> createBudget(BudgetDTO budgetDTO)
+    public Response<Void> createBudget(BudgetDTO budgetDTO)
     {
         Budget budget=budgetRepository.findByCategoryAndYearMonth(budgetDTO.getCategory(),budgetDTO.getYearMonth());
         if (budget!=null)
@@ -27,7 +27,7 @@ public class BudgetServiceImpl implements BudgetService {
             throw new BusinessException("Budget exists.");
         }
         budgetRepository.save(BudgetDTO.convert(budgetDTO));
-        return Response.success(budgetDTO);
+        return Response.success(null);
     }
 
     public Response<BudgetDTO> getBudgetById(Long id)
