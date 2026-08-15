@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface EntryRepository extends JpaRepository<Entry,Long> {
 
-    Entry findByTransaction(Transaction transaction);
+    List<Entry> findByTransaction(Transaction transaction);
 
     List<Entry> findByTransactionIn(List<Transaction> transactions);
 

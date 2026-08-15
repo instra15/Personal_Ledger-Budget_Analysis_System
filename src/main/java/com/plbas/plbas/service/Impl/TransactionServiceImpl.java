@@ -2,8 +2,11 @@ package com.plbas.plbas.service.Impl;
 
 import com.plbas.plbas.Response;
 import com.plbas.plbas.entity.*;
+import com.plbas.plbas.enums.CategoryDirection;
+import com.plbas.plbas.enums.EntryDirection;
 import com.plbas.plbas.exception.BusinessException;
 import com.plbas.plbas.repository.*;
+import com.plbas.plbas.service.DTO.BudgetDTO;
 import com.plbas.plbas.service.DTO.TransactionDTO;
 import com.plbas.plbas.service.DTO.TxDTO;
 import jakarta.transaction.Transactional;
@@ -142,6 +145,32 @@ public class TransactionServiceImpl implements TransactionService {
         {
             throw new BusinessException("Can not find by tx_no: "+tx_no);
         }
-        return Response.success(TransactionDTO.converter(transaction));
+
+        TransactionDTO transactionDTO=TransactionDTO.converter(transaction);
+
+        List<Entry> entries = entryRepository.findByTransaction(transaction);
+
+        Category category = null;
+        for (Entry entry : entries)
+        {
+            if (entry.getDirection() == EntryDirection.DEBIT
+                    && entry.getCategory().getDirection() == CategoryDirection.EXPENSE)
+            {
+                category = entry.getCategory();
+                break;
+            }
+        }
+
+        if (category!=null)
+        {
+            String yearMonth = YearMonth.now().toString();
+            Budget budget = budgetRepository.findByCategoryAndYearMonth(category, yearMonth);
+            if (budget!=null && BudgetDTO.isWarning(BudgetDTO.convert(budget)))
+            {
+                BigDecimal rate = budget.getCurrentSpent().divide(budget.getBudgetAmount(), 2, RoundingMode.HALF_UP).multiply(new BigDecimal("100"));
+                transactionDTO.setWarning("Current spent has reached " + rate + "%");
+            }
+        }
+        return Response.success(transactionDTO);
     }
 }

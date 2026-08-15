@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 @NoArgsConstructor
@@ -54,4 +55,9 @@ public class BudgetDTO {
         return budget;
     }
 
+    public static boolean isWarning(BudgetDTO budgetDTO)
+    {
+        BigDecimal rate=budgetDTO.getCurrentSpent().divide(budgetDTO.getBudgetAmount(),2, RoundingMode.HALF_UP).multiply(new BigDecimal("100"));
+        return rate.compareTo(budgetDTO.getThresholdPercent()) >= 0;
+    }
 }

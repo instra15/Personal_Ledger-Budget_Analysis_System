@@ -35,4 +35,6 @@ public class Transaction {
 
     @Column(name = "remark")
     private String remark;//备注，例如"中午和同事吃饭"
+
+
 }
