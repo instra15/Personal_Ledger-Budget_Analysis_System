@@ -48,12 +48,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public Response<TransactionDTO> addTransaction(TxDTO txDTO)
     {
+        if (transactionRepository.existsByTxNo(txDTO.getTxNo()))
+        {
+            throw new BusinessException("Business exists.");
+        }
         //保存一笔交易信息
         Transaction transaction=new Transaction();
-        String uuid=UUID.randomUUID().toString();
+        transaction.setTxNo(txDTO.getTxNo());
         transaction.setDate(txDTO.getDate());
         transaction.setRemark(txDTO.getRemark());
-        transaction.setTxNo(uuid);
         transaction = transactionRepository.save(transaction);
 
         List<Entry> entries=new ArrayList<>();
@@ -123,11 +126,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
         accountRepository.saveAll(accounts);
 
-
         TransactionDTO transactionDTO=new TransactionDTO();
         transactionDTO.setDate(txDTO.getDate());
         transactionDTO.setRemark(txDTO.getRemark());
-        transactionDTO.setTx_no(uuid);
+        transactionDTO.setTx_no(txDTO.getTxNo());
         transactionDTO.setWarning(warning);
         return Response.success(transactionDTO);
     }
@@ -172,5 +174,17 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
         return Response.success(transactionDTO);
+    }
+
+    @Transactional
+    public Response<Void> deleteTransaction(String txNo)
+    {
+        Transaction transaction=transactionRepository.findByTxNo(txNo);
+        if (transaction==null)
+        {
+            throw new BusinessException("Transaction does not exist");
+        }
+        List<Entry> entries=entryRepository.findByTransaction(transaction);
+
     }
 }

@@ -13,4 +13,6 @@ public interface TransactionService {
     Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable);
 
     Response<TransactionDTO> getTransactionByTx_no(String tx_no);
+
+    Response<Void> deleteTransaction(String txNo);
 }

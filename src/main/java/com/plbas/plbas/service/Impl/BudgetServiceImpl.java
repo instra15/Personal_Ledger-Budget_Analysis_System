@@ -21,6 +21,10 @@ public class BudgetServiceImpl implements BudgetService {
 
     public Response<Void> createBudget(BudgetDTO budgetDTO)
     {
+        if (budgetRepository.existsByCategoryAndYearMonth(budgetDTO.getCategory(),budgetDTO.getYearMonth()))
+        {
+            throw new BusinessException("Budget exists.");
+        }
         Budget budget=budgetRepository.findByCategoryAndYearMonth(budgetDTO.getCategory(),budgetDTO.getYearMonth());
         if (budget!=null)
         {

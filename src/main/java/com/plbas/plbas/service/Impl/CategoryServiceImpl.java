@@ -21,6 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Response<Void> createCategory(CategoryDTO categoryDTO)
     {
+        if (categoryRepository.existsByName(categoryDTO.getName()))
+        {
+            throw new BusinessException("Category exists.");
+        }
         Category category=categoryRepository.findByNameAndDirection(categoryDTO.getName(),categoryDTO.getDirection());
         if (category!=null)
         {
@@ -37,4 +41,13 @@ public class CategoryServiceImpl implements CategoryService {
         return Response.success(list);
     }
 
+    public Response<Void> deleteCategory(Long id)
+    {
+        if (!categoryRepository.existsById(id))
+        {
+            throw new BusinessException("Category does not exists.");
+        }
+        categoryRepository.deleteById(id);
+        return Response.success(null);
+    }
 }

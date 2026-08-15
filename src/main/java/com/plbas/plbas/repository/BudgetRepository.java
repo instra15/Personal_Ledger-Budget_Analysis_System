@@ -2,6 +2,7 @@ package com.plbas.plbas.repository;
 
 import com.plbas.plbas.entity.Budget;
 import com.plbas.plbas.entity.Category;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,6 @@ public interface BudgetRepository extends JpaRepository<Budget,Long> {
     Budget findByCategory(@NotNull Category category);
 
     Budget findByCategoryAndYearMonth(Category category,String yearMonth);
+
+    boolean existsByCategoryAndYearMonth(@NotNull Category category, @NotBlank String yearMonth);
 }

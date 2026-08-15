@@ -15,7 +15,7 @@ public interface AccountService {
 
     Response<List<AccountDTO>> getAllAccounts();
 
-
+    Response<Void> deleteAccount(Long id);
 
 
 
