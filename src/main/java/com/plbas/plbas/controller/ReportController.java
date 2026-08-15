@@ -6,9 +6,13 @@ import com.plbas.plbas.service.Impl.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -20,6 +24,7 @@ import java.util.Map;
 @Tag(name = "总览管理")
 @RestController
 @RequestMapping("/api/report")
+@Validated
 public class ReportController {
 
     @Autowired
@@ -27,7 +32,7 @@ public class ReportController {
 
     @Operation(summary = "月度消费趋势")
     @GetMapping("/get/monthTrend")
-    public Response<Map<String,Object>> getMonthTrendByYearMonth(String yearMonth, CategoryDirection direction)
+    public Response<Map<String,Object>> getMonthTrendByYearMonth(@RequestParam @NotBlank String yearMonth,@RequestParam @NotNull CategoryDirection direction)
     {
         return reportService.getMonthTrendByYearMonth(yearMonth,direction);
     }

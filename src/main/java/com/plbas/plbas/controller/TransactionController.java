@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "事务管理")
 @RestController
 @RequestMapping("/api/transaction")
+@Validated
 public class TransactionController {
 
     @Autowired
@@ -27,7 +29,7 @@ public class TransactionController {
 
     @Operation(summary = "新增事务")
     @PostMapping("/add")
-    public Response<Void> addTransaction(@RequestBody @Valid TxDTO txDTO)
+    public Response<TransactionDTO> addTransaction(@RequestBody @Valid TxDTO txDTO)
     {
         return transactionService.addTransaction(txDTO);
     }
@@ -41,7 +43,7 @@ public class TransactionController {
 
     @Operation(summary = "查找事务（流水号）")
     @GetMapping("/get/{txNo}")
-    public Object getTransactionByTxNo(@PathVariable @NotBlank String txNo)
+    public Response<TransactionDTO> getTransactionByTxNo(@PathVariable @NotBlank String txNo)
     {
         return transactionService.getTransactionByTx_no(txNo);
     }

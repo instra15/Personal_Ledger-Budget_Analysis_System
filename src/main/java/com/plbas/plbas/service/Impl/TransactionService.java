@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface TransactionService {
 
-    Response<Void> addTransaction(TxDTO txDTO);
+    Response<TransactionDTO> addTransaction(TxDTO txDTO);
 
     Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable);
 

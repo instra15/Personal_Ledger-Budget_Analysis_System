@@ -43,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
     private BudgetRepository budgetRepository;
 
     @Transactional
-    public Response<Void> addTransaction(TxDTO txDTO)
+    public Response<TransactionDTO> addTransaction(TxDTO txDTO)
     {
         //保存一笔交易信息
         Transaction transaction=new Transaction();
@@ -126,7 +126,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDTO.setRemark(txDTO.getRemark());
         transactionDTO.setTx_no(uuid);
         transactionDTO.setWarning(warning);
-        return Response.success(null);
+        return Response.success(transactionDTO);
     }
 
     public Response<Page<TransactionDTO>> getAllTransactions(Pageable pageable)
