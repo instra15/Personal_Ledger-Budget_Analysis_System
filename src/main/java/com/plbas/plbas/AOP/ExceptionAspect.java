@@ -20,7 +20,7 @@ public class ExceptionAspect {
     {
         String name=joinPoint.getSignature().getName();
         String msg=exception.getMessage();
-        log.error("方法：{} 发生了错误：{}",name,msg);
+        log.error("方法：[{}] 发生了错误：{}",name,msg);
     }
 
 }

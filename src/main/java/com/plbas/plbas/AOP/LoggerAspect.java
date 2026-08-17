@@ -20,7 +20,7 @@ public class LoggerAspect {
     public void BeforeLogger(JoinPoint joinPoint)
     {
         String name=joinPoint.getSignature().getName();
-        log.info("执行了：{}",name);
+        log.info("执行了：[{}]",name);
     }
 
     @AfterReturning(value = "Logger()",returning = "result")
