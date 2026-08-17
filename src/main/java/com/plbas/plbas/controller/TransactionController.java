@@ -48,4 +48,10 @@ public class TransactionController {
         return transactionService.getTransactionByTx_no(txNo);
     }
 
+    @Operation(summary = "删除事务（流水号）")
+    @DeleteMapping("/delete/txNO/{txNo}")
+    public Response<Void> deleteTransactionByTxNO(@PathVariable @NotBlank String txNO)
+    {
+        return transactionService.deleteTransactionByTxNo(txNO);
+    }
 }

@@ -14,5 +14,5 @@ public interface TransactionService {
 
     Response<TransactionDTO> getTransactionByTx_no(String tx_no);
 
-    Response<Void> deleteTransaction(String txNo);
+    Response<Void> deleteTransactionByTxNo(String txNo);
 }

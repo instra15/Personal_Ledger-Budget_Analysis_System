@@ -177,19 +177,51 @@ public class TransactionServiceImpl implements TransactionService {
         return Response.success(transactionDTO);
     }
 
-    public Response<Void> deleteTransaction(String txNo) {
-        return null;
-    }
+    @Transactional
+    public Response<Void> deleteTransactionByTxNo(String txNo)
+    {
+        // 1. 查询交易
+        Transaction transaction = transactionRepository.findByTxNo(txNo);
+        if (transaction == null) {
+            throw new BusinessException("Transaction does not exist");
+        }
 
-//    @Transactional
-//    public Response<Void> deleteTransaction(String txNo)
-//    {
-//        Transaction transaction=transactionRepository.findByTxNo(txNo);
-//        if (transaction==null)
-//        {
-//            throw new BusinessException("Transaction does not exist");
-//        }
-//        List<Entry> entries=entryRepository.findByTransaction(transaction);
-//
-//    }
+        // 2. 查询该交易的所有分录
+        List<Entry> entries = entryRepository.findByTransaction(transaction);
+
+        // 3. 恢复账户余额和预算累计
+        Set<Account> affectedAccounts = new HashSet<>();
+        for (Entry entry : entries) {
+            Account account = entry.getAccount();
+            if (entry.getDirection() == EntryDirection.DEBIT) {
+                // 借方：创建时加余额，删除时减余额
+                account.setBalance(account.getBalance().subtract(entry.getAmount()));
+
+                // 恢复预算累计（仅支出分类）
+                if (entry.getCategory().getDirection() == CategoryDirection.EXPENSE) {
+                    String yearMonth = YearMonth.now().toString();
+                    Budget budget = budgetRepository.findByCategoryAndYearMonth(
+                            entry.getCategory(), yearMonth);
+                    if (budget != null) {
+                        budget.setCurrentSpent(budget.getCurrentSpent().subtract(entry.getAmount()));
+                    }
+                }
+            } else {
+                // 贷方：创建时减余额，删除时加余额
+                account.setBalance(account.getBalance().add(entry.getAmount()));
+            }
+            affectedAccounts.add(account);
+        }
+
+        // 4. 保存所有受影响的账户（批量更新）
+        accountRepository.saveAll(affectedAccounts);
+
+        // 5. 删除分录（如果外键设置了 CASCADE，此步可省略）
+        entryRepository.deleteAll(entries);
+
+        // 6. 删除交易
+        transactionRepository.delete(transaction);
+
+        return Response.success(null);
+    }
 }
