@@ -2,6 +2,7 @@ package com.plbas.plbas.service.Impl;
 
 
 import com.plbas.plbas.Response;
+import com.plbas.plbas.entity.Account;
 import com.plbas.plbas.exception.BusinessException;
 import com.plbas.plbas.repository.AccountRepository;
 import com.plbas.plbas.service.DTO.AccountDTO;
@@ -32,8 +33,13 @@ public class AccountServiceImpl implements AccountService {
         return Response.success(accountRepository.findAll().stream().map(AccountDTO::converter).toList());
     }
 
-    @Transactional
-    public Response<Void> deleteAccount(Long id)
+    public Response<AccountDTO> getAccountById(Long id) {
+        Account account=accountRepository.findById(id).orElseThrow(()->new RuntimeException("Account does not exist."));
+        AccountDTO accountDTO=AccountDTO.converter(account);
+        return Response.success(accountDTO);
+    }
+
+    public Response<Void> deleteAccountById(Long id)
     {
         if (!accountRepository.existsById(id))
         {

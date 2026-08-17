@@ -27,6 +27,7 @@ import static com.plbas.plbas.enums.EntryDirection.DEBIT;
 /**
  * 复式记账事务编排
  */
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -176,15 +177,19 @@ public class TransactionServiceImpl implements TransactionService {
         return Response.success(transactionDTO);
     }
 
-    @Transactional
-    public Response<Void> deleteTransaction(String txNo)
-    {
-        Transaction transaction=transactionRepository.findByTxNo(txNo);
-        if (transaction==null)
-        {
-            throw new BusinessException("Transaction does not exist");
-        }
-        List<Entry> entries=entryRepository.findByTransaction(transaction);
-
+    public Response<Void> deleteTransaction(String txNo) {
+        return null;
     }
+
+//    @Transactional
+//    public Response<Void> deleteTransaction(String txNo)
+//    {
+//        Transaction transaction=transactionRepository.findByTxNo(txNo);
+//        if (transaction==null)
+//        {
+//            throw new BusinessException("Transaction does not exist");
+//        }
+//        List<Entry> entries=entryRepository.findByTransaction(transaction);
+//
+//    }
 }

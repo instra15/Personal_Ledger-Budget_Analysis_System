@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,12 +35,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     public Response<List<CategoryDTO>> getAllCategory()
     {
-        List<CategoryDTO> list=new ArrayList<>();
-        list=categoryRepository.findAll().stream().map(CategoryDTO::converter).toList();
+        List<CategoryDTO> list=categoryRepository.findAll().stream().map(CategoryDTO::converter).toList();
         return Response.success(list);
     }
 
-    public Response<Void> deleteCategory(Long id)
+    public Response<CategoryDTO> getCategoryById(Long id) {
+        Category category=categoryRepository.findById(id).orElseThrow(()->new BusinessException("Category does not exist."));
+        CategoryDTO categoryDTO=CategoryDTO.converter(category);
+        return Response.success(categoryDTO);
+    }
+
+    public Response<Void> deleteCategoryById(Long id)
     {
         if (!categoryRepository.existsById(id))
         {
@@ -50,4 +54,5 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(id);
         return Response.success(null);
     }
+
 }

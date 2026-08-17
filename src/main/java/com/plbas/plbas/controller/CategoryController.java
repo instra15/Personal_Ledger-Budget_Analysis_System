@@ -1,7 +1,6 @@
 package com.plbas.plbas.controller;
 
 import com.plbas.plbas.Response;
-import com.plbas.plbas.entity.Category;
 import com.plbas.plbas.service.DTO.CategoryDTO;
 import com.plbas.plbas.service.Impl.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,11 +32,25 @@ public class CategoryController {
         return categoryService.createCategory(categoryDTO);
     }
 
+    @Operation(summary = "获取分类（id）")
+    @GetMapping("/get/id/{id}")
+    public Response<CategoryDTO> getCategoryById(@PathVariable @NotNull Long id)
+    {
+        return categoryService.getCategoryById(id);
+    }
+
     @Operation(summary = "获取所有分类")
     @GetMapping("/get")
     public Response<List<CategoryDTO>> getAllCategory()
     {
         return categoryService.getAllCategory();
+    }
+
+    @Operation(summary = "删除分类（id）")
+    @DeleteMapping("/delete/id/{id}")
+    public Response<Void> deleteCategoryById(@PathVariable @NotNull Long id)
+    {
+        return categoryService.deleteCategoryById(id);
     }
 
 }
